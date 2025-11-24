@@ -6,6 +6,9 @@ router = DefaultRouter()
 router.register(r'habits', HabitViewSet, basename='habits')
 
 urlpatterns = [
+    # URL для ViewSet (автоматически создает: habits/, habits/<id>/, etc.)
     path('', include(router.urls)),
-    path('public_habits/', PublicHabitListAPIView.as_view(), name='public-habits'),
+
+    # Отдельный URL для публичных привычек
+    path('public/', PublicHabitListAPIView.as_view(), name='public-habits'),
 ]
