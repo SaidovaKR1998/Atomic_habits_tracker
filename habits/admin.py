@@ -1,3 +1,9 @@
+# habits/admin.py
 from django.contrib import admin
+from .models import Habit
 
-# Register your models here.
+@admin.register(Habit)
+class HabitAdmin(admin.ModelAdmin):
+    list_display = ('action', 'place', 'time', 'user', 'is_public')
+    list_filter = ('is_public', 'is_pleasant')
+    search_fields = ('action', 'place')
