@@ -184,3 +184,21 @@ CELERY_BEAT_SCHEDULE = {
         'args': (1,),  # ID привычки для теста
     },
 }
+
+# ______________ временно
+
+# Celery Configuration (используем файловую систему для Windows)
+CELERY_BROKER_URL = 'filesystem://'
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    'data_folder_in': './celery/data',
+    'data_folder_out': './celery/data',
+    'data_folder_processed': './celery/processed'
+}
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_TIMEZONE = TIME_ZONE
+
+# Создаем папки для Celery
+import os
+os.makedirs('./celery/data', exist_ok=True)
+os.makedirs('./celery/processed', exist_ok=True)
