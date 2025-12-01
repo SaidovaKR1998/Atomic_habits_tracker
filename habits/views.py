@@ -1,6 +1,6 @@
 # habits/views.py
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.generics import ListAPIView
 from .models import Habit
 from .serializers import HabitSerializer
