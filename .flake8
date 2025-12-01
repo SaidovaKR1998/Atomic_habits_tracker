@@ -1,0 +1,18 @@
+# .flake8
+[flake8]
+max-line-length = 119
+exclude =
+    migrations,
+    __pycache__,
+    .git,
+    .env,
+    .venv,
+    env,
+    venv,
+    staticfiles,
+    media,
+    celery
+ignore =
+    E501,  # line too long
+    W503,  # line break before binary operator
+    E203,  # whitespace before ':'
