@@ -1,4 +1,6 @@
 # config/settings.py
+from celery.schedules import crontab
+from datetime import timedelta
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -114,7 +116,6 @@ REST_FRAMEWORK = {
 }
 
 # JWT Settings
-from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -171,7 +172,6 @@ CORS_ALLOW_HEADERS = [
 ]
 
 # Celery Beat Settings (периодические задачи)
-from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
     'check-habits-every-10-minutes': {
@@ -199,7 +199,6 @@ CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_TIMEZONE = TIME_ZONE
 
 # Создаем папки для Celery
-import os
 os.makedirs('./celery/data', exist_ok=True)
 os.makedirs('./celery/processed', exist_ok=True)
 

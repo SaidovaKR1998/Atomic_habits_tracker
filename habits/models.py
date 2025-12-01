@@ -2,6 +2,7 @@
 from django.db import models
 from django.conf import settings
 
+
 class Habit(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Пользователь')
     place = models.CharField(max_length=255, verbose_name='Место')
