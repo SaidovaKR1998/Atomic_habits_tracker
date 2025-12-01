@@ -169,3 +169,18 @@ CORS_ALLOW_HEADERS = [
     'x-csrftoken',
     'x-requested-with',
 ]
+
+# Celery Beat Settings (периодические задачи)
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'check-habits-every-10-minutes': {
+        'task': 'habits.services.check_and_send_habit_reminders',
+        'schedule': crontab(minute='*/10'),  # Каждые 10 минут
+    },
+    'test-task-every-minute': {
+        'task': 'habits.tasks.send_telegram_reminder',
+        'schedule': crontab(minute='*'),  # Каждую минуту (для теста)
+        'args': (1,),  # ID привычки для теста
+    },
+}
