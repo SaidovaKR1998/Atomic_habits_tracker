@@ -202,3 +202,6 @@ CELERY_TIMEZONE = TIME_ZONE
 import os
 os.makedirs('./celery/data', exist_ok=True)
 os.makedirs('./celery/processed', exist_ok=True)
+
+# Telegram Configuration
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
