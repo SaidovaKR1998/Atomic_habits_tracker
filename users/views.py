@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 
+
 class UserCreateAPIView(generics.CreateAPIView):
     """Регистрация нового пользователя"""
     queryset = User.objects.all()
