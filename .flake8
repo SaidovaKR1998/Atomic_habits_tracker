@@ -13,6 +13,6 @@ exclude =
     media,
     celery
 ignore =
-    E501,  # line too long
+    E501,  # line too long - разрешаем длинные строки
     W503,  # line break before binary operator
-    E203,  # whitespace before ':'
+    E203   # whitespace before ':'
