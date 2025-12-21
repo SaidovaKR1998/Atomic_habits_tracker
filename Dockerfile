@@ -1,33 +1,25 @@
-# Используем официальный Python образ
 FROM python:3.11-slim
 
-# Устанавливаем системные зависимости
+WORKDIR /app
+
+# Установка зависимостей системы
 RUN apt-get update && apt-get install -y \
     gcc \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем рабочую директорию
-WORKDIR /app
-
-# Копируем requirements.txt
+# Копирование зависимостей
 COPY requirements.txt .
 
-# Устанавливаем Python зависимости
+# Установка Python зависимостей
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем весь проект
+# Копирование проекта
 COPY . .
 
-# Создаем папки для статики и медиа
-RUN mkdir -p /app/staticfiles /app/media
+# Создание пользователя для безопасности
+RUN useradd -m -u 1000 django_user && \
+    chown -R django_user:django_user /app
+USER django_user
 
-# Делаем скрипт запуска исполняемым
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
-
-# Открываем порт
 EXPOSE 8000
-
-# Запускаем приложение
-CMD ["sh", "entrypoint.sh"]
