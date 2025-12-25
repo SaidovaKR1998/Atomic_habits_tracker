@@ -71,6 +71,10 @@ jobs:
       run: |
         python manage.py test
 
+    - name: Run linting
+      run: |
+        flake8 .
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
