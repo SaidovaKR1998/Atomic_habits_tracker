@@ -87,38 +87,30 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           echo "🚀 Starting deployment on $(date)"
-          echo "📁 Working directory: ~/apps/atomic-habits"
+          echo "📁 Working directory: ~/home/skr_1998/apps/atomic-habits"
           
           # Переходим в папку проекта
-          cd ~/apps/atomic-habits
+          cd /home/skr_1998/apps/atomic-habits
           
-          # Получаем последние изменения из GitHub
+          # Получаем последние изменения
           echo "📥 Pulling latest changes from GitHub..."
           git pull origin main
           
-          # Останавливаем старые контейнеры (если есть)
+          # Останавливаем старые контейнеры
           echo "⏹️ Stopping old containers..."
-          docker-compose -f docker-compose.prod.yaml down || true
-          
-          # Собираем и запускаем новые контейнеры
+          docker compose -f docker-compose.prod.yaml down || true
+        
+          # Собираем и запускаем новые
           echo "🔨 Building and starting new containers..."
-          docker-compose -f docker-compose.prod.yaml up -d --build
-          
-          # Ждём немного, чтобы контейнеры успели запуститься
+          docker compose -f docker-compose.prod.yaml up -d --build
+        
+          # Ждём запуска
           echo "⏳ Waiting for containers to start..."
-          sleep 15
-          
-          # Выполняем миграции
-          echo "📊 Running database migrations..."
-          docker-compose -f docker-compose.prod.yaml exec -T backend python manage.py migrate --noinput
-          
-          # Собираем статику
-          echo "📦 Collecting static files..."
-          docker-compose -f docker-compose.prod.yaml exec -T backend python manage.py collectstatic --noinput
-          
-          # Проверяем, что контейнеры запущены
+          sleep 30
+        
+          # Проверяем
           echo "🔍 Checking container status..."
-          docker-compose -f docker-compose.prod.yaml ps
-          
+          docker compose -f docker-compose.prod.yaml ps
+        
           echo "✅ Deployment completed successfully!"
-          echo "🌐 Your application is now running at: http://${{ secrets.SERVER_HOST }}:8000"
+          echo "🌐 Your application: http://158.160.89.10:8000/api/health/"
