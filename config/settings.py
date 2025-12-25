@@ -10,9 +10,9 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Безопасность
-#SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
-#DEBUG = True  # Пока всегда True для разработки
-#ALLOWED_HOSTS = ['*']  # Пока разрешаем все хосты
+# SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
+# DEBUG = True  # Пока всегда True для разработки
+# ALLOWED_HOSTS = ['*']  # Пока разрешаем все хосты
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
@@ -71,12 +71,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # БАЗА ДАННЫХ - используем SQLite для простоты
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -205,14 +205,14 @@ REDIS_PORT = os.getenv('REDIS_PORT', '6379')
 REDIS_PASSWORD = os.getenv('REDIS_PASSWORD', '')
 
 # Celery Configuration (используем файловую систему для Windows)
-#CELERY_BROKER_URL = 'filesystem://'
+# CELERY_BROKER_URL = 'filesystem://'
 CELERY_BROKER_URL = f'redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/0'
 CELERY_BROKER_TRANSPORT_OPTIONS = {
     'data_folder_in': './celery/data',
     'data_folder_out': './celery/data',
     'data_folder_processed': './celery/processed'
 }
-#CELERY_RESULT_BACKEND = 'rpc://'
+# CELERY_RESULT_BACKEND = 'rpc://'
 CELERY_RESULT_BACKEND = f'redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/0'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_TIMEZONE = TIME_ZONE
